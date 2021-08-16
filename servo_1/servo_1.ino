@@ -9,19 +9,19 @@ void setup() {
   Serial.begin(9600);
 }
 
-int angle = 1;
+int angle = 180;
 int ch = 0;
-int v = 10;
-
 void loop() {
-  if(angle < 180 && angle > 0){
-    angle += v;
+  if(Serial.available()){
+    ch = Serial.read();
   }
-  else{
-    v *= -1;
-    angle += v;
-  }
-  Serial.println(angle);
+  if(ch == '1')
+    angle = 180;
+  else if(ch == '2')
+    angle = 0;
+    
   myservo.write(angle);
-  delay(100);
+  
+  Serial.println(angle);
+  delay(400);
 }
